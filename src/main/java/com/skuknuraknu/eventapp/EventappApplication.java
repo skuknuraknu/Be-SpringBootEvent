@@ -1,9 +1,6 @@
 package com.skuknuraknu.eventapp;
 
-import com.skuknuraknu.eventapp.domain.Categories;
-import com.skuknuraknu.eventapp.domain.CategoriesRepository;
-import com.skuknuraknu.eventapp.domain.Organizers;
-import com.skuknuraknu.eventapp.domain.OrganizersRepository;
+import com.skuknuraknu.eventapp.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -18,9 +15,13 @@ public class EventappApplication implements CommandLineRunner {
 	private final OrganizersRepository organizersRepository;
 	private final CategoriesRepository categoriesRepository;
 
-	public EventappApplication(OrganizersRepository organizersRepository, CategoriesRepository categoriesRepository){
+	private final ImagesRepository imagesRepository;
+
+	public EventappApplication(OrganizersRepository organizersRepository, CategoriesRepository categoriesRepository, ImagesRepository imagesRepository){
 		this.organizersRepository = organizersRepository;
 		this.categoriesRepository = categoriesRepository;
+		this.imagesRepository = imagesRepository;
+
 	}
 
 	public static void main(String[] args) {
@@ -38,6 +39,8 @@ public class EventappApplication implements CommandLineRunner {
 		categoriesRepository.save(new Categories("Konser", org1));
 		categoriesRepository.save(new Categories("Seminar", org1));
 		categoriesRepository.save(new Categories("Pameran", org2));
+
+		imagesRepository.save(new Images("Avatar.png"));
 
 		for( Organizers org : organizersRepository.findAll()){
 			logger.info("Name", org.getName());
