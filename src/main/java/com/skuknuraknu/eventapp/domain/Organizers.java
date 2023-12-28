@@ -1,10 +1,13 @@
 package com.skuknuraknu.eventapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Organizers {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) private long id;
@@ -20,6 +23,7 @@ public class Organizers {
         super();
         this.name = name;
     }
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizers")
     private List<Categories> categoriesList;
 
